@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import { Provider } from 'react-redux';
-// import { Router } from 'react-router-dom';
+//import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import history from './history';
 
 import App from './components/App';
 
 ReactDOM.render(
-   <App />,  
+   <Router history={history}>
+      <App />
+   </Router>,  
    document.getElementById('app')
 );
