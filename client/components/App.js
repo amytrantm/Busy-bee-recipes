@@ -1,10 +1,10 @@
 import React from 'react'
-
+import Route from './Routes'
 
 const App = () => {
    return (
       <div>
-         <h1>Starting point</h1>
+         <Route/>
       </div>
    )
 }
