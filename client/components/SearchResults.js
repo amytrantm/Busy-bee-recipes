@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Col } from 'reactstrap'
+import { Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import Recipe from './Recipe'
-import { API_KEY, APP_ID } from '../../secrets/api_key'
+import { API_KEY } from '../../secrets/api_key'
 import axios from 'axios'
-const RECIPES_API_URL = 'https://api.edamam.com/search'
+const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/complexSearch'
 
 
 class SearchResults extends Component {
@@ -18,12 +18,14 @@ class SearchResults extends Component {
 
       const search = window.location.search // "?q=chicken"
       const query = search.substring(3) // "chicken"
-      const FROM = 0
-      const TO = 50
-      const URL = `${RECIPES_API_URL}?app_id=${APP_ID}&app_key=${API_KEY}&q=${query}&from=${FROM}&to=${TO}`
+      console.log('query', query)
+      // const FROM = 0
+      // const TO = 50
+      const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&query=${query}`
       console.log(`URL`, URL)
       const response = await axios.get(URL)
-      const searchResults = response.data.hits.filter(recipe => recipe.recipe.totalTime >=  10 && recipe.recipe.totalTime <= 60)
+      const searchResults = response.data.results
+      
       this.setState({
          recipes: searchResults
       })
@@ -31,13 +33,21 @@ class SearchResults extends Component {
 
    render() {
       return (
-         <Col >
-            {
-               (this.state.recipes || []).map((recipe, index) => (
-                  <Recipe key={index}  recipe={recipe} index={index}/>
-               ))
-            }
-         </Col>
+         <div>
+            <div >
+               <Breadcrumb>
+                  <BreadcrumbItem><a href="/">Home</a></BreadcrumbItem>
+                  <BreadcrumbItem active>Search Results</BreadcrumbItem>
+               </Breadcrumb>
+            </div>
+            <Col >
+               {
+                  (this.state.recipes || []).map(recipe => (
+                     <Recipe key={recipe.id} recipe={recipe} />
+                  ))
+               }
+            </Col>
+         </div>
       )
    }
 }

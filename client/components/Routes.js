@@ -13,7 +13,7 @@ class Routes extends Component {
             <Switch>
                <Route exact path='/' component={Home} />
                <Route path='/recipes/search' component={SearchResults} />
-               <Route path='/recipes/:index' component={SingleRecipe} />
+               <Route path='/recipes/:id/information' component={SingleRecipe} />
             </Switch>
          </div>
       )
