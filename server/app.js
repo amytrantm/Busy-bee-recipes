@@ -1,7 +1,10 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
+const cookieParser = require('cookie-parser') //!
+
 const app = express()
+
 
 module.exports = app
 
@@ -12,8 +15,11 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+//! cookie parser middleware
+app.use(cookieParser());
+
 // auth and api routes
-//app.use('/auth', require('./auth'))
+app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))   //! set up API Routes: match all routes in api folder
 //app.use('/auth', require('./auth'))
 
