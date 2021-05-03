@@ -1,23 +1,24 @@
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
    Container, Card, CardImg, CardText, CardBody,
    CardTitle, CardSubtitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
 import { API_KEY } from '../../secrets/api_key'
 import axios from 'axios'
-
+import { updateMe } from '../redux/auth';
 
 class SingleRecipe extends Component {
    constructor(props){
       super(props)
       this.state = {
          id: props.match.params.id,
-         currentRecipe: []
+         currentRecipe: [],
+         user: props.user || {}
       }
    }
 
    componentDidMount = async () => {
-      
       const id = this.state.id
       const RECIPES_API_URL = `https://api.spoonacular.com/recipes/${id}/information`
       
@@ -26,8 +27,55 @@ class SingleRecipe extends Component {
       const response = await axios.get(URL)
       const recipe = response.data
       this.setState({
-         currentRecipe: recipe
+         currentRecipe: recipe,
       })
+   }
+   
+   addToFavorite = (evt) => {
+      evt.preventDefault();
+      const user = this.props.user
+      const existingFavRecipes = user.favoriteRecipeIds
+      const recipeIdToBeAdded = this.state.currentRecipe.id
+
+      if (!existingFavRecipes.includes(recipeIdToBeAdded)){
+         existingFavRecipes.push(recipeIdToBeAdded)
+      }
+
+      this.props.updateMe(user);
+      this.setState({
+         user,
+      })
+   }
+
+   removeFromFavorite = (evt) => {
+       evt.preventDefault();
+      const user = this.props.user
+      const existingFavRecipes = user.favoriteRecipeIds
+      const recipeIdToBeRemoved = this.state.currentRecipe.id
+
+      if (existingFavRecipes.includes(recipeIdToBeRemoved)) {
+         existingFavRecipes.splice(existingFavRecipes.indexOf(recipeIdToBeRemoved), 1)
+      }
+
+      this.props.updateMe(user);
+      this.setState({
+         user
+      })
+   }
+
+   favoriteButton = () => {
+      const user = this.props.user
+      const existingFavRecipes = user.favoriteRecipeIds
+      const recipeIdToBeAdded = this.state.currentRecipe.id
+
+
+      if (!existingFavRecipes) return
+      
+      if (!existingFavRecipes.includes(recipeIdToBeAdded)) {
+         return <Button onClick={this.addToFavorite}>Add To Favorite</Button>
+      } else {
+         return <Button onClick={this.removeFromFavorite}>Remove From Favorite</Button>
+      }
    }
    
    render(){
@@ -38,17 +86,14 @@ class SingleRecipe extends Component {
       /* console.log('keys: ',Object.keys(this.state.currentRecipe))
       ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable", "weightWatcherSmartPoints", "gaps", "lowFodmap", "aggregateLikes", "spoonacularScore", "healthScore", "creditsText", "sourceName", "pricePerServing", "extendedIngredients", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image", "imageType", "summary", "cuisines", "dishTypes", "diets", "occasions", "winePairing", "instructions", "analyzedInstructions", "originalId", "spoonacularSourceUrl"] 
       */
-      console.log(this.state.currentRecipe)
 
       const { title, summary, readyInMinutes, image, instructions, extendedIngredients  } = this.state.currentRecipe
-   
-      
+
       return (
          <Container>
             <div>
                <Breadcrumb>
                   <BreadcrumbItem><a href="/">Home</a></BreadcrumbItem>
-                  <BreadcrumbItem><a href="/recipes/search">Search Results</a></BreadcrumbItem>
                   <BreadcrumbItem active>Recipe </BreadcrumbItem>
                </Breadcrumb>
             </div>
@@ -74,12 +119,22 @@ class SingleRecipe extends Component {
                   <CardText dangerouslySetInnerHTML={{ __html: instructions }} />
                </CardBody>
             </Card>
-            <Button>Save This Recipe</Button>
-
+            
+            { this.favoriteButton() }
          </Container>
       )
    }
    
 }
 
-export default SingleRecipe
+const mapState = state =>{
+   return {
+      user: state.auth
+   }  
+}
+
+const mapDispatch = dispatch => ({
+   updateMe: (user) => dispatch(updateMe(user))
+})
+
+export default connect(mapState, mapDispatch)(SingleRecipe)

@@ -21,3 +21,21 @@ router.put("/:id", requireToken, async (req, res, next) => {
       next(err);
    }
 });
+
+router.get("/:id/saved-recipes", requireToken, async (req, res, next) => {
+   try {
+      const user = await User.findByPk(req.params.id);
+      res.json(user.savedRecipeIds)
+   } catch (err) {
+      next(err);
+   }
+});
+
+router.get("/:id/favorite-recipes", requireToken, async (req, res, next) => {
+   try {
+      const user = await User.findByPk(req.params.id);
+      res.json(user.favoriteRecipeIds)
+   } catch (err) {
+      next(err);
+   }
+});

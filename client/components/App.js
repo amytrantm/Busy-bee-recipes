@@ -25,7 +25,7 @@ const App = () => {
                   </NavLink>
                </NavItem>
                <NavItem>
-                  <NavLink className="nav-link" to='/saved-recipes'> 🔖  Saved Receipes </NavLink>
+                  <NavLink className="nav-link" to='/favorite-recipes'> 🔖  Favorites </NavLink>
                </NavItem>
             </Nav>
          </Navbar>
