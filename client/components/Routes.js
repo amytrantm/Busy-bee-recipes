@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Home from './Home'
 import SearchResults from './SearchResults'
 import SingleRecipe from './SingleRecipe'
+import SavedRecipes from './SavedRecipes'
 
 
 class Routes extends Component {
@@ -14,6 +15,7 @@ class Routes extends Component {
                <Route exact path='/' component={Home} />
                <Route path='/recipes/search' component={SearchResults} />
                <Route path='/recipes/:id/information' component={SingleRecipe} />
+               <Route path='/saved-recipes' component={SavedRecipes} />
             </Switch>
          </div>
       )

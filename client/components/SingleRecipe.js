@@ -1,8 +1,8 @@
-import { render } from 'enzyme';
+
 import React, { Component } from 'react';
 import {
    Container, Card, CardImg, CardText, CardBody,
-   CardTitle, CardSubtitle, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+   CardTitle, CardSubtitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
 import { API_KEY } from '../../secrets/api_key'
 import axios from 'axios'
 
@@ -14,7 +14,6 @@ class SingleRecipe extends Component {
          id: props.match.params.id,
          currentRecipe: []
       }
-
    }
 
    componentDidMount = async () => {
@@ -37,10 +36,13 @@ class SingleRecipe extends Component {
       }
 
       /* console.log('keys: ',Object.keys(this.state.currentRecipe))
-      ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable", "weightWatcherSmartPoints", "gaps", "lowFodmap", "aggregateLikes", "spoonacularScore", "healthScore", "creditsText", "sourceName", "pricePerServing", "extendedIngredients", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image", "imageType", "summary", "cuisines", "dishTypes", "diets", "occasions", "winePairing", "instructions", "analyzedInstructions", "originalId", "spoonacularSourceUrl"] */
+      ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable", "weightWatcherSmartPoints", "gaps", "lowFodmap", "aggregateLikes", "spoonacularScore", "healthScore", "creditsText", "sourceName", "pricePerServing", "extendedIngredients", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image", "imageType", "summary", "cuisines", "dishTypes", "diets", "occasions", "winePairing", "instructions", "analyzedInstructions", "originalId", "spoonacularSourceUrl"] 
+      */
+      console.log(this.state.currentRecipe)
 
-      const { title, summary,readyInMinutes, image  } = this.state.currentRecipe
+      const { title, summary, readyInMinutes, image, instructions, extendedIngredients  } = this.state.currentRecipe
    
+      
       return (
          <Container>
             <div>
@@ -57,12 +59,26 @@ class SingleRecipe extends Component {
                   <CardSubtitle tag="h6" className="mb-2 text-muted">Cook time: {readyInMinutes} minutes</CardSubtitle>
                   {/* render raw html from {summary} */}
                   <CardText dangerouslySetInnerHTML={{__html: summary}} />
+                  
+                  <CardText><strong>Ingredients:</strong> </CardText>
+                  {
+                     (extendedIngredients || []).map(ingredient => (
+                        <ul key={ingredient.id}>
+                           <li>{ingredient.name} : {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}  </li>
+                        </ul>
+                     ))
+
+                  }
+                  
+                  <CardText> <strong>Instructions:</strong> </CardText>
+                  <CardText dangerouslySetInnerHTML={{ __html: instructions }} />
                </CardBody>
             </Card>
+            <Button>Save This Recipe</Button>
+
          </Container>
       )
    }
-   
    
 }
 

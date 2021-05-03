@@ -26,11 +26,22 @@ module.exports = {
             }
          },
          {
-            test: /\.css$/,
+            test: /\.(sass|scss|css)$/,
             use: [
                'style-loader',
                'css-loader',
+               'sass-loader'
             ]
+         },
+         {
+            test: /\.(svg|eot|woff|woff2|ttf)(\?v=\d+\.\d+\.\d+)?$/,
+            use: {
+               loader: 'file-loader',
+               options: {
+                  name: '[name].[ext]',
+                  outputPath: 'fonts/'
+               }
+            }
          }
       ]
    },
