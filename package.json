@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "seed": "node script/seed.js",
+    "seed": "node server/seed.js",
     "start": "node server/main.js",
     "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
@@ -49,6 +49,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.2.0",
+    "cookie-parser": "^1.4.5",
     "css-loader": "^5.2.4",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",

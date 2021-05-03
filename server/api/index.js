@@ -3,7 +3,7 @@ module.exports = router
 
 
 //router.use('/')
-//router.use('/users', require('./users'))
+router.use('/users', require('./users_api'))
 
 
 
