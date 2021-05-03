@@ -4,8 +4,6 @@ import { Link, withRouter } from 'react-router-dom'
 
 const Recipe = (props) => {
    const { title, image, id } = props.recipe
- 
-   console.log(props.recipe)
 
    return (
       <Card>
