@@ -14,6 +14,16 @@ class FavoriteRecipes extends Component {
    
    render(){
       const { favoriteRecipeIds } = this.state.user
+      if (favoriteRecipeIds.length === 0) {
+         return <div>There are no favorites.</div>
+         // (<div>
+         //    <p>There are no favorites. </p>
+         //    <div>
+         //    <Link to={`/`}> Please add new recipe</Link>
+         //    </div>
+         // </div>)
+      }
+
       return(
          <Container>
             <Row>

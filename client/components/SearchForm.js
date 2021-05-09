@@ -29,11 +29,11 @@ class SearchForm extends Component {
                         {
                            this.state.searchQuery ? 
                            <Link to={`/recipes/search?q=${this.state.searchQuery}`}>
-                              <Button color='primary'>
+                              <Button color='success'>
                                  Search
                               </Button>
                            </Link> :
-                              <Button outline color="primary">
+                              <Button outline color="success">
                                  Search
                               </Button>
                         }
