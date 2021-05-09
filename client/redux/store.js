@@ -11,7 +11,7 @@ import auth from './auth'
 // let middleware = [
 //    thunkMiddleware.withExtraArgument({ axios }), 
 // ]
-//* process is not defined
+//! process is not defined
 // if (process.browser) {
 //    middleware = [...middleware, createLogger({ collapsed: true })]
 // }

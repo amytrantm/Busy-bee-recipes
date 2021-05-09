@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap'
-import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 
 import SearchForm from './SearchForm'
@@ -16,7 +14,9 @@ class Home extends Component {
                isLoggedIn ? 
                ( <SearchForm />) :
                (<div> 
-                  <Link to='/login'><Button>Login</Button></Link>
+                     
+                  <h4> Let's make a yummy meal today! </h4>
+                  <h5>Sign in to save recipes to favorite</h5>
                   <SearchForm/>
                </div>
                )
@@ -27,7 +27,7 @@ class Home extends Component {
    }
 }
 
-const mapState = (state) => {
+const mapState = state => {
    return {
       isLoggedIn: !!state.auth.id,
    };

@@ -17,3 +17,10 @@
 .recipe-card {
    margin: 10px;
 }
+
+#logout {
+  text-align: right;
+   right: 40px;
+  position: fixed;
+      
+}

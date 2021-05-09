@@ -1,4 +1,5 @@
 import React from 'react'
+import { Container, Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 import { authenticate } from '../redux/store'
 
@@ -9,26 +10,28 @@ const AuthForm = props => {
    const { name, displayName, handleSubmit, error } = props
 
    return (
-      <div>
-         <form onSubmit={handleSubmit} name={name}>
-            <div>
-               <label htmlFor="email">
-                  <small>Email</small>
-               </label>
-               <input name="email" type="text" />
-            </div>
-            <div>
-               <label htmlFor="password">
-                  <small>Password</small>
-               </label>
-               <input name="password" type="password" />
-            </div>
-            <div>
-               <button type="submit">{displayName}</button>
-            </div>
+      <Container>
+         <Form onSubmit={handleSubmit} name={name}>
+            <Row form>
+               <FormGroup>
+                  <Label htmlFor="email">
+                     <small>Email</small>
+                  </Label>
+                  <Input name="email" type="text" />
+               </FormGroup>
+               <FormGroup>
+                  <Label htmlFor="password">
+                     <small>Password</small>
+                  </Label>
+                  <Input name="password" type="password" />
+               </FormGroup>
+            </Row>          
+            <FormGroup>
+               <Button outline color="success" type="submit">{displayName}</Button>
+            </FormGroup>
             {error && error.response && <div> {error.response.data} </div>}
-         </form>
-      </div>
+         </Form>
+      </Container>
    )
 }
 

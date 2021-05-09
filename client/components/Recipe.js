@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { Button, Container, Card, CardTitle, CardImg, CardText} from 'reactstrap'
+import { Button, Card, CardTitle, CardImg, CardText} from 'reactstrap'
 import { Link, withRouter } from 'react-router-dom'
 
 const Recipe = (props) => {
    const { title, image, id } = props.recipe
 
+   // const ViewRecipeButton = withRouter(({ history }) => (
+   //    <Button type='button' onClick={() => { history.push(`/recipes/${id}/information`)}}>
+   //       View Recipe
+   //    </Button>
+   // ))
    return (
       <Card>
          <div className='recipe-card'>
@@ -13,6 +18,8 @@ const Recipe = (props) => {
             <Button outline color="success" size="small">
                <Link to={`/recipes/${id}/information`}>View Recipe</Link>
             </Button>
+            {/* <ViewRecipeButton/> */}
+
          </div>
       
          <p>💟 </p>
