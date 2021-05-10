@@ -23,7 +23,7 @@ import auth from './auth'
   This will come in handy when we need to reset our redux store in between tests.
  */
 const appReducer = combineReducers({
-   //combinedReducer,
+   ...combinedReducer,
    auth
 })
 
