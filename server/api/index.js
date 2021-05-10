@@ -2,8 +2,8 @@ const router = require('express').Router()
 module.exports = router
 
 
-//router.use('/')
-router.use('/users', require('./users_api'))
+
+router.use('/recipes', require('./recipes_api'))
 
 
 

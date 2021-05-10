@@ -4,90 +4,69 @@ import { connect } from 'react-redux'
 import {
    Container, Card, CardImg, CardText, CardBody,
    CardTitle, CardSubtitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
-import { API_KEY } from '../../secrets/api_key'
-import axios from 'axios'
-import { updateMe } from '../redux/auth';
+import { addToFavorites, removeFromFavorites } from '../redux/auth'
+import { getRecipe } from '../redux/recipe'
 
 class SingleRecipe extends Component {
    constructor(props){
       super(props)
       this.state = {
-         id: props.match.params.id,
-         currentRecipe: [],
-         user: props.user || {}
+         //id: props.match.params.id,
+         user: props.user || {},
+         favRecipes: props.user? props.user : []
       }
    }
 
    componentDidMount = async () => {
-      const id = this.state.id
-      const RECIPES_API_URL = `https://api.spoonacular.com/recipes/${id}/information`
-      
-      const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&id=${id}`
-      console.log(`URL`, URL)
-      const response = await axios.get(URL)
-      const recipe = response.data
-      this.setState({
-         currentRecipe: recipe,
-      })
+      this.props.getRecipe(this.props.match.params.id);
    }
    
-   addToFavorite = (evt) => {
+   addToFavorites = (evt) => {
       evt.preventDefault();
-      const user = this.props.user
-      const existingFavRecipes = user.favoriteRecipeIds
-      const recipeIdToBeAdded = this.state.currentRecipe.id
-
-      if (!existingFavRecipes.includes(recipeIdToBeAdded)){
-         existingFavRecipes.push(recipeIdToBeAdded)
-      }
-
-      this.props.updateMe(user);
-      this.setState({
-         user,
-      })
+      this.props.addToFavorites(this.props.user.id, this.props.match.params.id)
    }
 
-   removeFromFavorite = (evt) => {
-       evt.preventDefault();
+   removeFromFavorites = (evt) => {
+      evt.preventDefault();
+      
       const user = this.props.user
-      const existingFavRecipes = user.favoriteRecipeIds
-      const recipeIdToBeRemoved = this.state.currentRecipe.id
+      const existingFavRecipes = user.favoriteRecipes
+      if (!existingFavRecipes) return
 
-      if (existingFavRecipes.includes(recipeIdToBeRemoved)) {
-         existingFavRecipes.splice(existingFavRecipes.indexOf(recipeIdToBeRemoved), 1)
+      const existingFavRecipeIds = existingFavRecipes.map(r => r.id)
+      const recipeIdToBeRemoved =  this.props.recipe.id
+
+      if (existingFavRecipeIds.includes(recipeIdToBeRemoved)) {
+         existingFavRecipeIds.splice(existingFavRecipeIds.indexOf(recipeIdToBeRemoved), 1)
       }
 
-      this.props.updateMe(user);
-      this.setState({
-         user
-      })
+     
+      this.props.removeFromFavorites(this.props.user.id, recipeIdToBeRemoved )
    }
 
    favoriteButton = () => {
-      const user = this.props.user
-      const existingFavRecipes = user.favoriteRecipeIds
-      const recipeIdToBeAdded = this.state.currentRecipe.id
-
+      const existingFavRecipes = this.props.user.favoriteRecipes
 
       if (!existingFavRecipes) return
       
-      if (!existingFavRecipes.includes(recipeIdToBeAdded)) {
-         return <Button onClick={this.addToFavorite}>Add To Favorite</Button>
+      const existingFavRecipeIds = existingFavRecipes.map(r => r.id)
+      
+      if (!existingFavRecipeIds.includes(this.props.recipe.id)) {
+         return <Button onClick={this.addToFavorites}>Add To Favorite</Button>
       } else {
-         return <Button onClick={this.removeFromFavorite}>Remove From Favorite</Button>
+         return <Button onClick={this.removeFromFavorites}>Remove From Favorite</Button>
       }
    }
    
    render(){
-      if (!this.state.currentRecipe) {
-         return null
-      }
+
 
       /* console.log('keys: ',Object.keys(this.state.currentRecipe))
+
       ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable", "weightWatcherSmartPoints", "gaps", "lowFodmap", "aggregateLikes", "spoonacularScore", "healthScore", "creditsText", "sourceName", "pricePerServing", "extendedIngredients", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image", "imageType", "summary", "cuisines", "dishTypes", "diets", "occasions", "winePairing", "instructions", "analyzedInstructions", "originalId", "spoonacularSourceUrl"] 
       */
 
-      const { title, summary, readyInMinutes, image, instructions, extendedIngredients  } = this.state.currentRecipe
+      const { title, summary, readyInMinutes, image, instructions, extendedIngredients  } = this.props.recipe
 
       return (
          <Container>
@@ -127,14 +106,19 @@ class SingleRecipe extends Component {
    
 }
 
-const mapState = state =>{
+const mapState = state => {
+   console.log('state', state)
    return {
-      user: state.auth
+      user: state.auth,
+      recipe: state.recipe
    }  
 }
 
 const mapDispatch = dispatch => ({
-   updateMe: (user) => dispatch(updateMe(user))
+   updateMe: user => dispatch(updateMe(user)),
+   getRecipe: recipeId => dispatch(getRecipe(recipeId)),
+   addToFavorites: (userId, recipeId) => dispatch(addToFavorites(userId, recipeId)),
+   removeFromFavorites: (userId, recipeId) => dispatch(removeFromFavorites(userId, recipeId))
 })
 
 export default connect(mapState, mapDispatch)(SingleRecipe)

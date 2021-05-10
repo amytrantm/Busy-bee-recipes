@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const axios = require("axios");
 
 const SALT_ROUNDS = 5;
 
@@ -16,15 +15,16 @@ const User = db.define("user", {
    password: {
       type: Sequelize.STRING,
    },
-   favoriteRecipeIds:{
-      type: Sequelize.ARRAY(Sequelize.TEXT),
-      defaultValue: []
-   },
-   savedRecipeIds: {
-      type: Sequelize.ARRAY(Sequelize.TEXT),
-      defaultValue: []
-   }
+   // favoriteRecipeIds:{
+   //    type: Sequelize.ARRAY(Sequelize.TEXT),
+   //    defaultValue: []
+   // },
+   // savedRecipeIds: {
+   //    type: Sequelize.ARRAY(Sequelize.TEXT),
+   //    defaultValue: []
+   // }
 });
+
 
 module.exports = User;
 

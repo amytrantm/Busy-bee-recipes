@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Button, Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardTitle, CardImg} from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Recipe from './Recipe'
@@ -13,8 +13,8 @@ class FavoriteRecipes extends Component {
    }
    
    render(){
-      const { favoriteRecipeIds } = this.state.user
-      if (favoriteRecipeIds.length === 0) {
+      const { favRecipes } = this.props
+      if (favRecipes.length === 0) {
          return <div>There are no favorites.</div>
          // (<div>
          //    <p>There are no favorites. </p>
@@ -37,12 +37,16 @@ class FavoriteRecipes extends Component {
 
             <Row>
                {
-                  (favoriteRecipeIds || []).map(id => (
-                     <div key={`recipe-${id}`}>
-                        <Button outline color="success" size="small" >
-                           <Link to={`/recipes/${id}/information`}>View Recipe</Link>
-                        </Button>
-                     </div>
+                  (favRecipes || []).map(recipe => (
+
+                        <Card key={recipe.id} >
+                           <CardImg top style={{ width: "40%" }} src={recipe.image} alt={recipe.title} />
+                           <CardTitle tag="h3">{recipe.title}</CardTitle>
+                           <Button outline color="success" size="small" >
+                              <Link to={`/recipes/${recipe.id}/information`}>View Recipe</Link>
+                           </Button>
+                        </Card>
+                    
                   ))
                }
             </Row>
@@ -53,8 +57,10 @@ class FavoriteRecipes extends Component {
 }
 
 const mapState = state => {
+
    return {
-      user: state.auth
+      user: state.auth,
+      favRecipes: state.auth.favoriteRecipes
    }
 }
 

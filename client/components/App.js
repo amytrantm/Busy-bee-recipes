@@ -20,7 +20,7 @@ const App = ({handleClick, isLoggedIn}) => {
             </div>
          </Jumbotron>
          <Navbar sticky="top" style={{ backgroundColor: '#f1f1f1' }}>
-            <Nav >
+            <Nav className="container-fluid">
                <NavItem>
                   <NavLink className="nav-link" to="/">
                      <i className="fas fas-home fa-lg" /> 🏠  Home
@@ -38,20 +38,17 @@ const App = ({handleClick, isLoggedIn}) => {
                      </>
                   )
                }
-               { isLoggedIn ? (
-                     <NavItem id="logout">
-                        <Link to="/">
-                        <Button outline color='warning' onClick={handleClick}>
-                              Sign Out
-                           </Button>
-                        </Link>
-                     </NavItem>
+               <NavItem className="ml-auto">
+                  { isLoggedIn ? (
+                     <Button outline color='warning' onClick={handleClick}>
+                        Sign Out
+                     </Button>
                   ) : (
-                        <NavItem>
-                           <NavLink className="nav-link" to='/login'>Sign In </NavLink>
-                        </NavItem>
-                  )
-               }
+                     <NavLink className="nav-link" to='/login'>
+                           <Button outline color='primary'>Sign In</Button>
+                     </NavLink>
+                  )}
+               </NavItem>
             </Nav>
          </Navbar>
          <Routes />
