@@ -1,7 +1,6 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
-const cookieParser = require('cookie-parser') //!
 
 const app = express()
 
@@ -14,9 +13,6 @@ app.use(morgan('dev'))
 // body parsing middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-//! cookie parser middleware
-app.use(cookieParser());
 
 // auth and api routes
 app.use('/auth', require('./auth'))
