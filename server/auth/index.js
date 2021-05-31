@@ -1,6 +1,4 @@
 const router = require('express').Router()
-const { useReducer } = require('react');
-
 const { models: { User, Recipe } } = require('../database')
 module.exports = router
 
