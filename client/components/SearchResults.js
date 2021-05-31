@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem, CardColumns } from 'reactstrap'
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem, CardDeck } from 'reactstrap'
 import Recipe from './Recipe'
 import { API_KEY } from '../../secrets/api_key'
 import axios from 'axios'
@@ -49,26 +49,22 @@ class SearchResults extends Component {
 
    render() {
       return (
-         <div>
+         <div className='home'>
             <Row>
                <Col>
                   <h4> Try these recipes today:  </h4>
                </Col>
             </Row>
-            <Row>
-               <Col>
-               <CardColumns>
 
-               {
-                  (this.state.recipes || []).map(recipe => (
-                     <Recipe key={recipe.id} recipe={recipe} />
-                  ))
-               }
-               </CardColumns>
-               </Col>
-            </Row>
-               
-         </div>
+               <CardDeck>
+                  {
+                     (this.state.recipes || []).map(recipe => (
+                        <Recipe key={recipe.id} recipe={recipe} />
+                     ))
+                  }
+               </CardDeck>
+            </div>
+   
       )
    }
 }

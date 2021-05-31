@@ -1,4 +1,6 @@
-
+body {
+   background-color: #f0edde ;
+}
 .jumbotron {
   margin: 0;
   padding: 30px;
@@ -7,7 +9,10 @@
 }
 
 .home {
-   margin: 20px;
+   margin: 3rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
 .container {
@@ -17,9 +22,7 @@
    align-items: center;
 }
 
-/* .recipe-card {
-   margin: 10px;
-} */
+
 
 .active {
    color: green;
@@ -46,3 +49,21 @@ a {
    font-family: "Gill Sans", sans-serif;
 }
 
+.carousel-caption h3 {
+   display: none;
+}
+
+.cardsContainer {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   align-items: center;
+  justify-content: center;
+}
+
+
+.card-item { 
+ height: 32%;
+  width: 32%;
+  margin-bottom: 2%; 
+}

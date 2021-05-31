@@ -53,9 +53,9 @@ const App = ({handleClick, isLoggedIn}) => {
                   { isLoggedIn ? (
                      <Col className="nav-right">
                         <SearchForm/>
-                        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} style={{fontSize:'2rem', padding:'0.4rem'}}>
+                        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} style={{fontSize:'1rem'}}>
                            <DropdownToggle caret color='warning'/>
-                           <DropdownMenu>
+                           <DropdownMenu right>
                               <DropdownItem onClick={handleClick}>
                                     Sign Out
                               </DropdownItem>

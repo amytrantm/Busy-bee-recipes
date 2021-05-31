@@ -3,6 +3,7 @@ import { Container } from 'reactstrap'
 import { connect } from "react-redux"
 
 import SearchForm from './SearchForm'
+import Carousel from './Carousel'
 
 class Home extends Component {
 
@@ -11,9 +12,10 @@ class Home extends Component {
 
       return (
          <div className='home'>
+            
             {
                isLoggedIn ? 
-               ( <h3>Welcome to Busy Bee Recipes! </h3>) :
+               ( <h2>Welcome to Busy Bee Recipes! </h2>) :
                (<Container> 
                      
                   <h4> Let's make a yummy meal today! </h4>
@@ -22,7 +24,9 @@ class Home extends Component {
                </Container>
                )
             }
-           
+            <div style={{ width: '700px', margin: '2em' }}>
+               <Carousel />
+            </div>
          </div>
       )
    }

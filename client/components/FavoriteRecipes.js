@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardTitle, CardImg, CardColumns, CardBody} from 'reactstrap'
+import { Button, Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardTitle, CardImg, CardBody, CardDeck} from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Recipe from './Recipe'
@@ -35,25 +35,25 @@ class FavoriteRecipes extends Component {
                </Col>
             </Row>
 
-            <Container>
-               <CardColumns>
+           <div className='home'>
+               <CardDeck>
                {
                   (favRecipes || []).map(recipe => (
-
-                     <Card key={recipe.id} >
-                        <CardImg top style={{ width: "100%" }} src={recipe.image} alt={recipe.title} />
-                        <CardBody>
-                           <CardTitle tag="h3">{recipe.title}</CardTitle>
-                           <Button outline color="success" size="small" >
-                              <Link to={`/recipes/${recipe.id}/information`}>View Recipe</Link>
-                           </Button>
-                        </CardBody>
-                     </Card>
-                    
+                     <div className='card-item' key={recipe.id}>
+                        <Card className="text-center" >
+                           <CardImg top width="100%" src={recipe.image} alt={recipe.title} />
+                           <CardBody>
+                              <CardTitle tag="h3">{recipe.title}</CardTitle>
+                              <Button outline color="success" size="small" >
+                                 <Link to={`/recipes/${recipe.id}/information`}>View Recipe</Link>
+                              </Button>
+                           </CardBody>
+                        </Card>
+                     </div>
                   ))
                }
-               </CardColumns>
-            </Container>
+               </CardDeck>
+            </div>
          </div>
          
       )

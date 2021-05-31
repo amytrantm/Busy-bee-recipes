@@ -18,24 +18,22 @@ class SearchForm extends Component {
    
    render() {
       return (
-        <Container>
-            <Form inline>
-               <FormGroup className="mb-1 mr-sm-1 mb-sm-0">
-                  <Input type='text' name="searchName" onChange={this.setSearchQuery} placeholder='Find a recipe'/>
-                  {
-                     this.state.searchQuery ? 
-                     <Link to={`/recipes/search?q=${this.state.searchQuery}`}>
-                        <Button color='success'>
-                           Search
-                        </Button>
-                     </Link> :
-                        <Button outline color="success">
-                           Search
-                        </Button>
-                  }
-               </FormGroup>
-            </Form>
-         </Container>
+         <Form inline>
+            <FormGroup className="mb-1 mr-sm-1 mb-sm-0">
+               <Input type='text' name="searchName" onChange={this.setSearchQuery} placeholder='Find a recipe'/>
+               {
+                  this.state.searchQuery ? 
+                  <Link to={`/recipes/search?q=${this.state.searchQuery}`}>
+                     <Button color='success'>
+                        Search
+                     </Button>
+                  </Link> :
+                     <Button outline color="success">
+                        Search
+                     </Button>
+               }
+            </FormGroup>
+         </Form>
       )
    }
 }

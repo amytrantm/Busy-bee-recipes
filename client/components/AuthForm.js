@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap'
 import { connect } from 'react-redux'
 import { authenticate } from '../redux/store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -27,10 +28,14 @@ const AuthForm = props => {
                </FormGroup>
             </Row>          
             <FormGroup>
-               <Button outline color="success" type="submit">{displayName}</Button>
+               <Button block outline color="success" type="submit">{displayName}</Button>
             </FormGroup>
             {error && error.response && <div> {error.response.data} </div>}
          </Form>
+         { name === 'login' ? 
+            <p>New User?<span><Link to='/signup'>Sign Up</Link></span></p>:  
+            <p>Already have an account?<span><Link to='/login'>Sign In</Link></span></p>
+         }
       </Container>
    )
 }
