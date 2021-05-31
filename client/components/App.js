@@ -1,36 +1,47 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import Routes from './Routes'
-import { Jumbotron, Nav, Navbar, NavItem, Button } from 'reactstrap';
-import { NavLink, Link } from 'react-router-dom';
-import { logout } from "../redux/auth";
-import { connect } from "react-redux";
-
+import { Jumbotron, Nav, Navbar, NavItem, Button, Row, Col,
+   ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem
+} from 'reactstrap'
+import { NavLink, Link } from 'react-router-dom'
+import { logout } from "../redux/auth"
+import { connect } from "react-redux"
+import Logo from '../../public/bee.png'
+import SearchForm from './SearchForm'
 
 const App = ({handleClick, isLoggedIn}) => {
+
+   const [dropdownOpen, setOpen] = useState(false);
+
+   const toggle = () => setOpen(!dropdownOpen);
+
    return (
-      <div >
+      <div>
          <Jumbotron fluid >
-            <div className="container">
-               <div className="row">
-                  <div className="col">
-                     <h1>Busy Bee Recipes</h1>
-                     <h2>Easy and quick meals 👨‍🍳 👩‍🍳  </h2>
-                  </div>
-               </div>
-            </div>
+            <Row>
+               <Col xs='1' sm='2'>
+                  <img style={{ width: "95%" }} className="rounded-circle"src={Logo} />
+               </Col>
+               <Col>
+                  <h1>   Busy Bee Recipes</h1>
+                  <h2>Easy and quick meals 👨‍🍳 👩‍🍳  </h2>
+               </Col>
+            </Row>
          </Jumbotron>
-         <Navbar sticky="top" style={{ backgroundColor: '#f1f1f1' }}>
+
+
+         <Navbar sticky="top" style={{ backgroundColor: '#fffbdf' }}>
             <Nav className="container-fluid">
                <NavItem>
-                  <NavLink className="nav-link" to="/">
-                     <i className="fas fas-home fa-lg" /> 🏠  Home
+                  <NavLink to="/">
+                     🏠  Home
                   </NavLink>
                </NavItem>
                {
                   isLoggedIn && (
                      <>
                         <NavItem>
-                           <NavLink className="nav-link" to='/favorite-recipes'> 🔖  Favorites </NavLink>
+                           <NavLink to='/favorite-recipes'>  🔖 Favorites </NavLink>
                         </NavItem>
                         {/* <NavItem>
                            <NavLink className="nav-link" to='/saved-recipes'> Saved </NavLink>
@@ -40,17 +51,27 @@ const App = ({handleClick, isLoggedIn}) => {
                }
                <NavItem className="ml-auto">
                   { isLoggedIn ? (
-                     <Button outline color='warning' onClick={handleClick}>
-                        Sign Out
-                     </Button>
+                     <Col className="nav-right">
+                        <SearchForm/>
+                        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} style={{fontSize:'2rem', padding:'0.4rem'}}>
+                           <DropdownToggle caret color='warning'/>
+                           <DropdownMenu>
+                              <DropdownItem onClick={handleClick}>
+                                    Sign Out
+                              </DropdownItem>
+                           </DropdownMenu>
+                        </ButtonDropdown>
+                     </Col>
+                     
                   ) : (
-                     <NavLink className="nav-link" to='/login'>
+                     <NavLink to='/login'>
                            <Button outline color='primary'>Sign In</Button>
                      </NavLink>
                   )}
                </NavItem>
             </Nav>
          </Navbar>
+
          <Routes />
       </div>
    )

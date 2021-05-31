@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardTitle, CardImg} from 'reactstrap'
+import { Button, Container, Row, Col, Breadcrumb, BreadcrumbItem, Card, CardTitle, CardImg, CardColumns, CardBody} from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Recipe from './Recipe'
@@ -25,9 +25,9 @@ class FavoriteRecipes extends Component {
       }
 
       return(
-         <Container>
+         <div>
             <Row>
-               <Col>
+               <Col >
                   <Breadcrumb>
                      <BreadcrumbItem><a href="/">Home</a></BreadcrumbItem>
                      <BreadcrumbItem active>Favorite Recipes</BreadcrumbItem>
@@ -35,22 +35,26 @@ class FavoriteRecipes extends Component {
                </Col>
             </Row>
 
-            <Row>
+            <Container>
+               <CardColumns>
                {
                   (favRecipes || []).map(recipe => (
 
-                        <Card key={recipe.id} >
-                           <CardImg top style={{ width: "40%" }} src={recipe.image} alt={recipe.title} />
+                     <Card key={recipe.id} >
+                        <CardImg top style={{ width: "100%" }} src={recipe.image} alt={recipe.title} />
+                        <CardBody>
                            <CardTitle tag="h3">{recipe.title}</CardTitle>
                            <Button outline color="success" size="small" >
                               <Link to={`/recipes/${recipe.id}/information`}>View Recipe</Link>
                            </Button>
-                        </Card>
+                        </CardBody>
+                     </Card>
                     
                   ))
                }
-            </Row>
-         </Container>
+               </CardColumns>
+            </Container>
+         </div>
          
       )
    }

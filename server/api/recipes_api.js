@@ -8,7 +8,9 @@ router.get("/:id",  async (req, res, next) => {
    try {
       const recipe = await Recipe.findByPk(req.params.id);
       if (recipe){
-         res.json(recipe);
+         const parsedIngredients = recipe.extendedIngredients.map(ingredient => JSON.parse(ingredient));
+
+         res.send({ ...recipe.dataValues, extendedIngredients: parsedIngredients });
       } else {
          res.sendStatus(404)
       }
@@ -20,8 +22,14 @@ router.get("/:id",  async (req, res, next) => {
 
 router.post("/",  async (req, res, next) => {
    try {
-      const recipe = await Recipe.create(req.body)
-      res.send(recipe);
+      //send string to database
+      const extendedIngredients = req.body.extendedIngredients.map(ingredient => JSON.stringify(ingredient));
+      
+      const recipe = await Recipe.create({ ...req.body, extendedIngredients })
+
+      const parsedIngredients = recipe.extendedIngredients.map(ingredient => JSON.parse(ingredient));
+      
+      res.send({ ...recipe.dataValues, extendedIngredients: parsedIngredients });
    } catch (err) {
       next(err);
    }

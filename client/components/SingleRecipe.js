@@ -52,9 +52,9 @@ class SingleRecipe extends Component {
       const existingFavRecipeIds = existingFavRecipes.map(r => r.id)
       
       if (!existingFavRecipeIds.includes(this.props.recipe.id)) {
-         return <Button onClick={this.addToFavorites}>Add To Favorite</Button>
+         return <Button color='success' onClick={this.addToFavorites}>Add To Favorite</Button>
       } else {
-         return <Button onClick={this.removeFromFavorites}>Remove From Favorite</Button>
+         return <Button color='warning' onClick={this.removeFromFavorites}>Remove From Favorite</Button>
       }
    }
    
@@ -67,40 +67,50 @@ class SingleRecipe extends Component {
       */
 
       const { title, summary, readyInMinutes, image, instructions, extendedIngredients  } = this.props.recipe
+      console.log(this.props)
+      console.log('extendedIngredients', extendedIngredients)
+      // const test = JSON.parse(extendedIngredients[0])
+      // console.log('test:',test)
+     
 
       return (
-         <Container>
-            <div>
+         <div>
+            
                <Breadcrumb>
                   <BreadcrumbItem><a href="/">Home</a></BreadcrumbItem>
                   <BreadcrumbItem active>Recipe </BreadcrumbItem>
                </Breadcrumb>
-            </div>
-            <Card>
-               <CardImg top style={{ width: "50%" }} src={image} alt="title" />
-               <CardBody>
-                  <CardTitle tag="h5">{title}</CardTitle>
-                  <CardSubtitle tag="h6" className="mb-2 text-muted">Cook time: {readyInMinutes} minutes</CardSubtitle>
-                  {/* render raw html from {summary} */}
-                  <CardText dangerouslySetInnerHTML={{__html: summary}} />
-                  
-                  <CardText><strong>Ingredients:</strong> </CardText>
-                  {
-                     (extendedIngredients || []).map(ingredient => (
-                        <ul key={ingredient.id}>
-                           <li>{ingredient.name} : {ingredient.measures.us.amount} {ingredient.measures.us.unitShort}  </li>
-                        </ul>
-                     ))
+            <Container>
+               <Card>
+                  <CardImg top style={{ width: "50%" }} src={image} alt="title" />
+                  <CardBody>
+                     <CardTitle tag="h5">{title}</CardTitle>
+                     <CardSubtitle tag="h6" className="mb-2 text-muted">Cook time: {readyInMinutes} minutes</CardSubtitle>
+                     {/* render raw html from {summary} */}
+                     <CardText dangerouslySetInnerHTML={{ __html: summary }} />
 
-                  }
-                  
-                  <CardText> <strong>Instructions:</strong> </CardText>
-                  <CardText dangerouslySetInnerHTML={{ __html: instructions }} />
-               </CardBody>
-            </Card>
+                     <CardText><strong>Ingredients:</strong> </CardText>
+                     {
+                        (extendedIngredients || []).map((ingredient, index) => (
+                           <ul key={`index-${index}`}>
+                              <li>{ingredient.name}: {" "}
+                                 {ingredient.measures.us.amount} {" "}
+                                 {ingredient.measures.us.unitShort}
+                              </li>
+                           </ul>
+                        ))
+
+                     }
+
+                     <CardText> <strong>Instructions:</strong> </CardText>
+                     <CardText dangerouslySetInnerHTML={{ __html: instructions }} />
+                  </CardBody>
+               </Card>
+
+               {this.favoriteButton()}
+            </Container>
             
-            { this.favoriteButton() }
-         </Container>
+         </div>
       )
    }
    

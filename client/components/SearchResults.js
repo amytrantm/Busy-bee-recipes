@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Container, Row, Col, Breadcrumb, BreadcrumbItem, CardColumns } from 'reactstrap'
 import Recipe from './Recipe'
 import { API_KEY } from '../../secrets/api_key'
 import axios from 'axios'
-import SearchForm from './SearchForm'
 const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/complexSearch'
-
+//https://api.spoonacular.com/food/search
 
 class SearchResults extends Component {
    constructor() {
@@ -50,29 +49,26 @@ class SearchResults extends Component {
 
    render() {
       return (
-         <Container>
+         <div>
             <Row>
                <Col>
-                  <Breadcrumb>
-                     <BreadcrumbItem><a href="/">Home</a></BreadcrumbItem>
-                     <BreadcrumbItem active>Search Results</BreadcrumbItem>
-                  </Breadcrumb>
-               </Col>
-              <Col>
-                <SearchForm/>
+                  <h4> Try these recipes today:  </h4>
                </Col>
             </Row>
             <Row>
                <Col>
+               <CardColumns>
+
                {
                   (this.state.recipes || []).map(recipe => (
                      <Recipe key={recipe.id} recipe={recipe} />
                   ))
                }
+               </CardColumns>
                </Col>
             </Row>
                
-         </Container>
+         </div>
       )
    }
 }

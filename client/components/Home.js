@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
+import React, { Component } from 'react'
+import { Container } from 'reactstrap'
+import { connect } from "react-redux"
 
 import SearchForm from './SearchForm'
 
@@ -12,13 +13,13 @@ class Home extends Component {
          <div className='home'>
             {
                isLoggedIn ? 
-               ( <SearchForm />) :
-               (<div> 
+               ( <h3>Welcome to Busy Bee Recipes! </h3>) :
+               (<Container> 
                      
                   <h4> Let's make a yummy meal today! </h4>
                   <h5>Sign in to save recipes to favorite</h5>
                   <SearchForm/>
-               </div>
+               </Container>
                )
             }
            
@@ -28,6 +29,7 @@ class Home extends Component {
 }
 
 const mapState = state => {
+   console.log('home state', state)
    return {
       isLoggedIn: !!state.auth.id,
    };

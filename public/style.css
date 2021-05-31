@@ -2,7 +2,7 @@
 .jumbotron {
   margin: 0;
   padding: 30px;
-  background-image: linear-gradient(to right, #24a451, #c9a037, #f0edde);
+  background-image: linear-gradient(to right, #f0edde , #c9a037, #24a451);
   color: white;
 }
 
@@ -12,8 +12,37 @@
 
 .container {
    margin: 10px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
-.recipe-card {
+/* .recipe-card {
    margin: 10px;
+} */
+
+.active {
+   color: green;
+   font-size: large;
+   text-decoration: none
 }
+
+.inactive {
+   color: orange;
+   font-size: large;
+   text-decoration: none;
+}
+
+a {
+   margin-left: 1rem;
+}
+
+.nav-right{
+   display: flex;
+   flex-direction: row;
+}
+
+* {
+   font-family: "Gill Sans", sans-serif;
+}
+

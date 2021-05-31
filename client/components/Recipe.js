@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardTitle, CardImg, CardText} from 'reactstrap'
+import { Container, Button, Card, CardTitle, CardImg, CardBody} from 'reactstrap'
 import { Link, withRouter } from 'react-router-dom'
 
 const Recipe = (props) => {
@@ -10,20 +10,22 @@ const Recipe = (props) => {
    //       View Recipe
    //    </Button>
    // ))
-   return (
-      <Card>
-         <div className='recipe-card'>
-            <CardImg top style={{ width: "40%" }} src={image} alt={title} />
-            <CardTitle tag="h3">{title}</CardTitle>
-            <Button outline color="success" size="small">
-               <Link to={`/recipes/${id}/information`}>View Recipe</Link>
-            </Button>
-            {/* <ViewRecipeButton/> */}
 
-         </div>
-      
-         <p>💟 </p>
-      </Card>
+   return (
+      <div style={{ padding: "18px" }}>
+         <Card>
+            <div className='recipe-card'>
+               <CardImg top style={{ width: "100%" }} src={image} alt={title} />
+               <CardBody>
+                  <CardTitle tag="h3">{title}</CardTitle>
+                  <Button outline color="success" size="small">
+                     <Link to={`/recipes/${id}/information`}>View Recipe</Link>
+                  </Button>
+               </CardBody>    
+               {/* <ViewRecipeButton/> */}
+            </div>
+         </Card>
+      </div>
          
    )
 }

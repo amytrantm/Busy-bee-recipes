@@ -42,6 +42,12 @@ module.exports = {
                   outputPath: 'fonts/'
                }
             }
+         },
+         {
+            test: /\.(png)$/,
+            use: {
+               loader: 'url-loader'
+            }
          }
       ]
    },

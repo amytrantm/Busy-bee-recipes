@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, Input, Button } from 'reactstrap'
+import { Form, FormGroup, Input, Button, Container } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 class SearchForm extends Component {
@@ -18,30 +18,24 @@ class SearchForm extends Component {
    
    render() {
       return (
-        <div className='container'>
-            <Form>
-               <FormGroup>
-                  <div className="row">
-                     <div className='col'>
-                        <Input type='text' name="searchName" onChange={this.setSearchQuery}/>
-                     </div>
-                     <div className='col'>
-                        {
-                           this.state.searchQuery ? 
-                           <Link to={`/recipes/search?q=${this.state.searchQuery}`}>
-                              <Button color='success'>
-                                 Search
-                              </Button>
-                           </Link> :
-                              <Button outline color="success">
-                                 Search
-                              </Button>
-                        }
-                     </div>
-                  </div>
+        <Container>
+            <Form inline>
+               <FormGroup className="mb-1 mr-sm-1 mb-sm-0">
+                  <Input type='text' name="searchName" onChange={this.setSearchQuery} placeholder='Find a recipe'/>
+                  {
+                     this.state.searchQuery ? 
+                     <Link to={`/recipes/search?q=${this.state.searchQuery}`}>
+                        <Button color='success'>
+                           Search
+                        </Button>
+                     </Link> :
+                        <Button outline color="success">
+                           Search
+                        </Button>
+                  }
                </FormGroup>
             </Form>
-         </div>
+         </Container>
       )
    }
 }
