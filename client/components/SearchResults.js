@@ -1,74 +1,76 @@
-import React, { Component } from 'react'
-import { Container, Row, Col, Breadcrumb, BreadcrumbItem, CardDeck } from 'reactstrap'
-import Recipe from './Recipe'
-import { API_KEY } from '../../secrets/api_key'
-import axios from 'axios'
-const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/complexSearch'
+import React, { Component } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Breadcrumb,
+  BreadcrumbItem,
+  CardDeck,
+} from 'reactstrap';
+import Recipe from './Recipe';
+import { API_KEY } from '../../secrets/api_key';
+import axios from 'axios';
+const RECIPES_API_URL = 'https://api.spoonacular.com/recipes/complexSearch';
 //https://api.spoonacular.com/food/search
 
 class SearchResults extends Component {
-   constructor() {
-      super()
-      this.state = {
-         recipes: []
-      }
-   }
+  constructor() {
+    super();
+    this.state = {
+      recipes: [],
+    };
+  }
 
-   componentDidMount = async () => {
+  componentDidMount = async () => {
+    const search = window.location.search; // "?q=chicken"
+    const query = search.substring(3); // "chicken"
+    const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&query=${query}&number=12&instructionsRequired&maxReadyTime=45`;
 
-      const search = window.location.search // "?q=chicken"
-      const query = search.substring(3) // "chicken"
-      const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&query=${query}`
-   
-      const response = await axios.get(URL)
-      const searchResults = response.data.results
-      
-      this.setState({
-         recipes: searchResults
-      })
-   }
+    const response = await axios.get(URL);
+    const searchResults = response.data.results;
 
-   componentDidUpdate = async(prevProps) => {
-      if (this.props.location !== prevProps.location) {
-         await this.onRouteChanged();
-      }
-   }
+    this.setState({
+      recipes: searchResults,
+    });
+  };
 
-   onRouteChanged = async () => {
-      const search = window.location.search 
-      const query = search.substring(3)
-      const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&query=${query}`
+  componentDidUpdate = async (prevProps) => {
+    if (this.props.location !== prevProps.location) {
+      await this.onRouteChanged();
+    }
+  };
 
-      const response = await axios.get(URL)
-      const searchResults = response.data.results
+  onRouteChanged = async () => {
+    const search = window.location.search;
+    const query = search.substring(3);
+    const URL = `${RECIPES_API_URL}?apiKey=${API_KEY}&query=${query}&number=12&instructionsRequired&maxReadyTime=45`;
 
-      this.setState({
-         recipes: searchResults
-      })
-   }
+    const response = await axios.get(URL);
+    const searchResults = response.data.results;
 
-   render() {
-      return (
-         <div className='home'>
-            <Row>
-               <Col>
-                  <h4> Try these recipes today:  </h4>
-               </Col>
-            </Row>
-            <Row>
-               <CardDeck>
-                  {
-                     (this.state.recipes || []).map(recipe => (
-                        <Recipe key={recipe.id} recipe={recipe} />
-                     ))
-                  }
-               </CardDeck>
-            </Row>
-         </div>
-   
-      )
-   }
+    this.setState({
+      recipes: searchResults,
+    });
+  };
+
+  render() {
+    return (
+      <div className="home">
+        <Row>
+          <Col>
+            <h4> Try these recipes today: </h4>
+          </Col>
+        </Row>
+        <Row>
+          <CardDeck>
+            {(this.state.recipes || []).map((recipe) => (
+              <Recipe key={recipe.id} recipe={recipe} />
+            ))}
+          </CardDeck>
+        </Row>
+      </div>
+    );
+  }
 }
 
-export default SearchResults
-
+export default SearchResults;
