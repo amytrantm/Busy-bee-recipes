@@ -14,9 +14,9 @@ const items = [
       caption: 'Pepperoni Pizza Muffins'
    },
    {
-      src: 'https://spoonacular.com/recipeImages/656791-556x370.jpg',
-      altText: 'Pork Menudo',
-      caption: 'Pork Menudo'
+      src: 'https://spoonacular.com/recipeImages/680975-556x370.jpg',
+      altText: 'BLT Pizza',
+      caption: 'BLT Pizza'
    }
 ];
 

@@ -24,21 +24,6 @@ body {
 
 
 
-.active {
-   color: green;
-   font-size: large;
-   text-decoration: none
-}
-
-.inactive {
-   color: orange;
-   font-size: large;
-   text-decoration: none;
-}
-
-a {
-   margin-left: 1rem;
-}
 
 .nav-right{
    display: flex;
@@ -66,4 +51,21 @@ a {
  height: 32%;
   width: 32%;
   margin-bottom: 2%; 
+}
+
+.active {
+   color: green;
+   font-size: large;
+   text-decoration: none
+}
+
+.inactive {
+   color: orange;
+   font-size: large;
+   text-decoration: none;
+}
+
+a {
+   margin-left: 1rem;
+   color: green;
 }

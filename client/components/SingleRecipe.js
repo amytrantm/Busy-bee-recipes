@@ -66,7 +66,7 @@ class SingleRecipe extends Component {
       ["vegetarian", "vegan", "glutenFree", "dairyFree", "veryHealthy", "cheap", "veryPopular", "sustainable", "weightWatcherSmartPoints", "gaps", "lowFodmap", "aggregateLikes", "spoonacularScore", "healthScore", "creditsText", "sourceName", "pricePerServing", "extendedIngredients", "id", "title", "readyInMinutes", "servings", "sourceUrl", "image", "imageType", "summary", "cuisines", "dishTypes", "diets", "occasions", "winePairing", "instructions", "analyzedInstructions", "originalId", "spoonacularSourceUrl"] 
       */
 
-      const { title, summary, readyInMinutes, image, instructions, extendedIngredients, sourceUrl  } = this.props.recipe
+      const { title, summary, readyInMinutes, image, instructions, extendedIngredients, sourceUrl, glutenFree  } = this.props.recipe
       console.log(this.props)
       console.log('extendedIngredients', extendedIngredients)
       // const test = JSON.parse(extendedIngredients[0])
@@ -84,9 +84,13 @@ class SingleRecipe extends Component {
                   <CardImg top style={{ width: "50%" }} src={image} alt="title" />
                   <CardBody>
                      <CardTitle tag="h5">{title}</CardTitle>
+                     
                      <CardSubtitle tag="h6" className="mb-2 text-muted">Cook time: {readyInMinutes} minutes</CardSubtitle>
                      <hr/>
-                     <CardText>Source:  {sourceUrl}</CardText>
+                     <CardText>Source:  <a href={`${sourceUrl}`}> {sourceUrl} </a></CardText>
+                     {glutenFree &&
+                        <CardText>Gluten Free</CardText>
+                     }
                      {/* render raw html from {summary} */}
                      <CardText dangerouslySetInnerHTML={{ __html: summary }} />
 
