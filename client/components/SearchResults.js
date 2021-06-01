@@ -55,7 +55,7 @@ class SearchResults extends Component {
                   <h4> Try these recipes today:  </h4>
                </Col>
             </Row>
-
+            <Row>
                <CardDeck>
                   {
                      (this.state.recipes || []).map(recipe => (
@@ -63,7 +63,8 @@ class SearchResults extends Component {
                      ))
                   }
                </CardDeck>
-            </div>
+            </Row>
+         </div>
    
       )
    }

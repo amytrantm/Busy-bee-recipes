@@ -16,7 +16,7 @@ const App = ({handleClick, isLoggedIn}) => {
    const toggle = () => setOpen(!dropdownOpen);
 
    return (
-      <div>
+      <>
          <Jumbotron fluid >
             <Row>
                <Col xs='1' sm='2'>
@@ -24,7 +24,7 @@ const App = ({handleClick, isLoggedIn}) => {
                </Col>
                <Col>
                   <h1>   Busy Bee Recipes</h1>
-                  <h2>Easy and quick meals 👨‍🍳 👩‍🍳  </h2>
+                  <h2>Easy and quick meals for everyone 👨‍🍳 👩‍🍳  </h2>
                </Col>
             </Row>
          </Jumbotron>
@@ -32,6 +32,7 @@ const App = ({handleClick, isLoggedIn}) => {
 
          <Navbar sticky="top" style={{ backgroundColor: '#fffbdf' }}>
             <Nav className="container-fluid">
+               
                <NavItem>
                   <NavLink to="/">
                      🏠  Home
@@ -49,7 +50,9 @@ const App = ({handleClick, isLoggedIn}) => {
                      </>
                   )
                }
-               <NavItem className="ml-auto">
+
+
+               <NavItem className="nav-item-right">
                   { isLoggedIn ? (
                      <Col className="nav-right">
                         <SearchForm/>
@@ -73,7 +76,7 @@ const App = ({handleClick, isLoggedIn}) => {
          </Navbar>
 
          <Routes />
-      </div>
+      </>
    )
 }
 

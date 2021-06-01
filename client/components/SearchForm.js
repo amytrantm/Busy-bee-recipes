@@ -18,8 +18,7 @@ class SearchForm extends Component {
    
    render() {
       return (
-         <Form inline>
-            <FormGroup className="mb-1 mr-sm-1 mb-sm-0">
+         <Form inline>   
                <Input type='text' name="searchName" onChange={this.setSearchQuery} placeholder='Find a recipe'/>
                {
                   this.state.searchQuery ? 
@@ -28,11 +27,10 @@ class SearchForm extends Component {
                         Search
                      </Button>
                   </Link> :
-                     <Button outline color="success">
+                     <Button  color="success">
                         Search
                      </Button>
-               }
-            </FormGroup>
+               }  
          </Form>
       )
    }

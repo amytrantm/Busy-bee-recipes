@@ -16,24 +16,24 @@ const AuthForm = props => {
             <Row form>
                <FormGroup>
                   <Label htmlFor="email">
-                     <small>Email</small>
+                     <small>Email*</small>
                   </Label>
-                  <Input name="email" type="text" />
+                  <Input name="email" type="email"/>
                </FormGroup>
                <FormGroup>
                   <Label htmlFor="password">
-                     <small>Password</small>
+                     <small>Password*</small>
                   </Label>
                   <Input name="password" type="password" />
                </FormGroup>
             </Row>          
             <FormGroup>
-               <Button block outline color="success" type="submit">{displayName}</Button>
+               <Button block color="success" type="submit">{displayName}</Button>
             </FormGroup>
             {error && error.response && <div> {error.response.data} </div>}
          </Form>
          { name === 'login' ? 
-            <p>New User?<span><Link to='/signup'>Sign Up</Link></span></p>:  
+            <p>New User ?<span><Link to='/signup'>Sign Up here</Link></span></p>:  
             <p>Already have an account?<span><Link to='/login'>Sign In</Link></span></p>
          }
       </Container>
